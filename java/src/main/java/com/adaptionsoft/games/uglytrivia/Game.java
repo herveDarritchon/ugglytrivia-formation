@@ -50,28 +50,29 @@ public class Game {
 
     private void moveAndAskQuestion(int roll) {
         players.getCurrentPlayer().move(roll);
+        int location = players.getCurrentPlayer().getLocation();
         System.out.println(players.getCurrentPlayer().name
                 + "'s new location is "
-                + players.getCurrentPlayer().getLocation());
-        System.out.println("The category is " + currentCategory());
-        askQuestion();
+                + location);
+        System.out.println("The category is " + currentCategory(location));
+        askQuestion(location);
     }
 
-    private void askQuestion() {
-        if (currentCategory() == "Pop")
+    private void askQuestion(int location) {
+        if (currentCategory(location) == "Pop")
             System.out.println(popQuestions.removeFirst());
-        if (currentCategory() == "Science")
+        if (currentCategory(location) == "Science")
             System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory() == "Sports")
+        if (currentCategory(location) == "Sports")
             System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory() == "Rock")
+        if (currentCategory(location) == "Rock")
             System.out.println(rockQuestions.removeFirst());
     }
 
-    private String currentCategory() {
-        if (players.getCurrentPlayer().getLocation() % 4 == 0) return "Pop";
-        if (players.getCurrentPlayer().getLocation() % 4 == 1) return "Science";
-        if (players.getCurrentPlayer().getLocation() % 4 == 2) return "Sports";
+    private String currentCategory(int location) {
+        if (location % 4 == 0) return "Pop";
+        if (location % 4 == 1) return "Science";
+        if (location % 4 == 2) return "Sports";
         return "Rock";
     }
 
