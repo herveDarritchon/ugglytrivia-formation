@@ -58,22 +58,14 @@ public class Game {
     }
 
     private Question drawQuestion(int location) {
-        if (currentCategory(location) == "Pop")
+        if (location % 4 == 0)
             return new Question("Pop", popQuestions.removeFirst());
-        if (currentCategory(location) == "Science")
+        if (location % 4 == 1)
             return new Question("Science", scienceQuestions.removeFirst());
-        if (currentCategory(location) == "Sports")
+        if (location % 4 == 2)
             return new Question("Sports", sportsQuestions.removeFirst());
-        if (currentCategory(location) == "Rock")
+        else
             return new Question("Rock", rockQuestions.removeFirst());
-        return null;
-    }
-
-    private String currentCategory(int location) {
-        if (location % 4 == 0) return "Pop";
-        if (location % 4 == 1) return "Science";
-        if (location % 4 == 2) return "Sports";
-        return "Rock";
     }
 
     public boolean wasCorrectlyAnswered() {
