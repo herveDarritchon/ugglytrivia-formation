@@ -1,16 +1,14 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Game {
     Players players = new Players();
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList<String> popQuestions = new LinkedList<>();
+    LinkedList<String> scienceQuestions = new LinkedList<>();
+    LinkedList<String> sportsQuestions = new LinkedList<>();
+    LinkedList<String> rockQuestions = new LinkedList<>();
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -54,19 +52,21 @@ public class Game {
         System.out.println(players.getCurrentPlayer().name
                 + "'s new location is "
                 + location);
-        System.out.println("The category is " + currentCategory(location));
-        askQuestion(location);
+        Question question = drawQuestion(location);
+        System.out.println("The category is " + question.category);
+        System.out.println(question.text);
     }
 
-    private void askQuestion(int location) {
+    private Question drawQuestion(int location) {
         if (currentCategory(location) == "Pop")
-            System.out.println(popQuestions.removeFirst());
+            return new Question("Pop", popQuestions.removeFirst());
         if (currentCategory(location) == "Science")
-            System.out.println(scienceQuestions.removeFirst());
+            return new Question("Science", scienceQuestions.removeFirst());
         if (currentCategory(location) == "Sports")
-            System.out.println(sportsQuestions.removeFirst());
+            return new Question("Sports", sportsQuestions.removeFirst());
         if (currentCategory(location) == "Rock")
-            System.out.println(rockQuestions.removeFirst());
+            return new Question("Rock", rockQuestions.removeFirst());
+        return null;
     }
 
     private String currentCategory(int location) {
