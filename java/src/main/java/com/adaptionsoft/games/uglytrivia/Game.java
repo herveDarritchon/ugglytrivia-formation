@@ -1,23 +1,26 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Game {
     Players players = new Players();
 
-    LinkedList<Question> popQuestions = new LinkedList<>();
-    LinkedList<Question> scienceQuestions = new LinkedList<>();
-    LinkedList<Question> sportsQuestions = new LinkedList<>();
-    LinkedList<Question> rockQuestions = new LinkedList<>();
+    Map<Integer, LinkedList<Question>> questions = new HashMap<>();
 
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
+        questions.put(0, new LinkedList<>());
+        questions.put(1, new LinkedList<>());
+        questions.put(2, new LinkedList<>());
+        questions.put(3, new LinkedList<>());
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast(new Question("Pop", "Pop Question " + i));
-            scienceQuestions.addLast(new Question("Science", "Science Question " + i));
-            sportsQuestions.addLast(new Question("Sports", "Sports Question " + i));
-            rockQuestions.addLast(new Question("Rock", "Rock Question " + i));
+            questions.get(0).addLast(new Question("Pop", "Pop Question " + i));
+            questions.get(1).addLast(new Question("Science", "Science Question " + i));
+            questions.get(2).addLast(new Question("Sports", "Sports Question " + i));
+            questions.get(3).addLast(new Question("Rock", "Rock Question " + i));
         }
     }
 
@@ -57,14 +60,7 @@ public class Game {
     }
 
     private Question drawQuestion(int location) {
-        if (location % 4 == 0)
-            return popQuestions.removeFirst();
-        if (location % 4 == 1)
-            return scienceQuestions.removeFirst();
-        if (location % 4 == 2)
-            return sportsQuestions.removeFirst();
-        else
-            return rockQuestions.removeFirst();
+        return questions.get(location % 4).removeFirst();
     }
 
     public boolean wasCorrectlyAnswered() {
