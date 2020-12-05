@@ -3,6 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 public class Player {
     public final String name;
     private int location;
+    private int goldCoins;
 
     public Player(String name) {
         this.name = name;
@@ -15,5 +16,17 @@ public class Player {
 
     public int getLocation() {
         return location;
+    }
+
+    public void winAGoldCoin() {
+        goldCoins++;
+        System.out.println(name
+                + " now has "
+                + goldCoins
+                + " Gold Coins.");
+    }
+
+    public boolean hasPlayerWon() {
+        return goldCoins == 6;
     }
 }

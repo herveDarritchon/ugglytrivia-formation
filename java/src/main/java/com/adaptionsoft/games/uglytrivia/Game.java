@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Game {
     List<Player> players = new ArrayList<>();
-    int[] goldCoins = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
     LinkedList popQuestions = new LinkedList();
@@ -28,7 +27,6 @@ public class Game {
 
     public boolean add(String playerName) {
         players.add(new Player(playerName));
-        goldCoins[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
 
         System.out.println(playerName + " was added");
@@ -90,7 +88,7 @@ public class Game {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
-                winAGoldCoin();
+                players.get(currentPlayer).winAGoldCoin();
 
                 return switchToNextPlayer();
             } else {
@@ -98,26 +96,18 @@ public class Game {
             }
         } else {
             System.out.println("Answer was corrent!!!!");
-            winAGoldCoin();
+            players.get(currentPlayer).winAGoldCoin();
 
             return switchToNextPlayer();
         }
     }
 
     private boolean switchToNextPlayer() {
-        boolean winner = hasPlayerWon();
+        boolean winner = players.get(currentPlayer).hasPlayerWon();
         currentPlayer++;
         if (currentPlayer == players.size()) currentPlayer = 0;
 
         return winner;
-    }
-
-    private void winAGoldCoin() {
-        goldCoins[currentPlayer]++;
-        System.out.println(players.get(currentPlayer).name
-                + " now has "
-                + goldCoins[currentPlayer]
-                + " Gold Coins.");
     }
 
     public boolean wrongAnswer() {
@@ -126,9 +116,5 @@ public class Game {
         inPenaltyBox[currentPlayer] = true;
 
         return switchToNextPlayer();
-    }
-
-    private boolean hasPlayerWon() {
-        return goldCoins[currentPlayer] == 6;
     }
 }
