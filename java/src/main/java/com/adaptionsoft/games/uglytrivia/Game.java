@@ -108,7 +108,7 @@ public class Game {
     }
 
     private boolean switchToNextPlayer() {
-        boolean winner = didPlayerWin();
+        boolean winner = hasPlayerWon();
         currentPlayer++;
         if (currentPlayer == players.size()) currentPlayer = 0;
 
@@ -128,12 +128,10 @@ public class Game {
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
-        return true;
+        return switchToNextPlayer();
     }
 
-    private boolean didPlayerWin() {
-        return !(goldCoins[currentPlayer] == 6);
+    private boolean hasPlayerWon() {
+        return goldCoins[currentPlayer] == 6;
     }
 }
