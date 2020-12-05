@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Game {
     List<Player> players = new ArrayList<>();
-    int[] places = new int[6];
     int[] goldCoins = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
@@ -29,7 +28,6 @@ public class Game {
 
     public boolean add(String playerName) {
         players.add(new Player(playerName));
-        places[howManyPlayers()] = 0;
         goldCoins[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
 
@@ -62,12 +60,10 @@ public class Game {
     }
 
     private void moveAndAskQuestion(int roll) {
-        places[currentPlayer] = places[currentPlayer] + roll;
-        if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-
+        players.get(currentPlayer).move(roll);
         System.out.println(players.get(currentPlayer).name
                 + "'s new location is "
-                + places[currentPlayer]);
+                + players.get(currentPlayer).getLocation());
         System.out.println("The category is " + currentCategory());
         askQuestion();
     }
@@ -84,9 +80,9 @@ public class Game {
     }
 
     private String currentCategory() {
-        if (places[currentPlayer] % 4 == 0) return "Pop";
-        if (places[currentPlayer] % 4 == 1) return "Science";
-        if (places[currentPlayer] % 4 == 2) return "Sports";
+        if (players.get(currentPlayer).getLocation() % 4 == 0) return "Pop";
+        if (players.get(currentPlayer).getLocation() % 4 == 1) return "Science";
+        if (players.get(currentPlayer).getLocation() % 4 == 2) return "Sports";
         return "Rock";
     }
 
