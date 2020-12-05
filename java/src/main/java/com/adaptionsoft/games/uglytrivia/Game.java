@@ -5,20 +5,19 @@ import java.util.LinkedList;
 public class Game {
     Players players = new Players();
 
-    LinkedList<String> popQuestions = new LinkedList<>();
-    LinkedList<String> scienceQuestions = new LinkedList<>();
-    LinkedList<String> sportsQuestions = new LinkedList<>();
-    LinkedList<String> rockQuestions = new LinkedList<>();
+    LinkedList<Question> popQuestions = new LinkedList<>();
+    LinkedList<Question> scienceQuestions = new LinkedList<>();
+    LinkedList<Question> sportsQuestions = new LinkedList<>();
+    LinkedList<Question> rockQuestions = new LinkedList<>();
 
-    int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast("Rock Question " + i);
+            popQuestions.addLast(new Question("Pop", "Pop Question " + i));
+            scienceQuestions.addLast(new Question("Science", "Science Question " + i));
+            sportsQuestions.addLast(new Question("Sports", "Sports Question " + i));
+            rockQuestions.addLast(new Question("Rock", "Rock Question " + i));
         }
     }
 
@@ -59,13 +58,13 @@ public class Game {
 
     private Question drawQuestion(int location) {
         if (location % 4 == 0)
-            return new Question("Pop", popQuestions.removeFirst());
+            return popQuestions.removeFirst();
         if (location % 4 == 1)
-            return new Question("Science", scienceQuestions.removeFirst());
+            return scienceQuestions.removeFirst();
         if (location % 4 == 2)
-            return new Question("Sports", sportsQuestions.removeFirst());
+            return sportsQuestions.removeFirst();
         else
-            return new Question("Rock", rockQuestions.removeFirst());
+            return rockQuestions.removeFirst();
     }
 
     public boolean wasCorrectlyAnswered() {
