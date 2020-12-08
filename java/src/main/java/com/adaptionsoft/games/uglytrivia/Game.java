@@ -1,9 +1,5 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
 public class Game {
     Players players = new Players();
 
@@ -55,13 +51,12 @@ public class Game {
                 System.out.println("Answer was correct!!!!");
                 players.getCurrentPlayer().winAGoldCoin();
             }
-            return players.switchToNextPlayer();
         } else {
             System.out.println("Answer was corrent!!!!");
             players.getCurrentPlayer().winAGoldCoin();
 
-            return players.switchToNextPlayer();
         }
+        return players.switchToNextPlayer();
     }
 
     public boolean wrongAnswer() {
